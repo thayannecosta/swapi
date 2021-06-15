@@ -9,8 +9,8 @@
               filled
               placeholder="Pesquisa"
             >
-              <template v-slot:string>
-                <q-icon @click="fazerPesquisa" name="search" />
+              <template v-slot:append>
+                <q-icon @click="fazerPesquisa" label="teste" color="primary" name="search" />
               </template>
             </q-input>
           </div>
@@ -45,7 +45,7 @@ export default {
         })
     },
     fazerPesquisa () {
-      const url = 'https://swapi.dev/api/people/?search=${this.buscaNome}'
+      const url = 'https://swapi.dev/api/people/?search=' + this.buscaNome
       this.$axios.get(url)
         .then(response => {
           this.buscaNome = response.data.results
