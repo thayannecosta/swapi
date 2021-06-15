@@ -5,7 +5,6 @@
         <q-toolbar-title class="text-center">
          Star Wiki
         </q-toolbar-title>
-
       </q-toolbar>
     </q-header>
     <q-page-container>

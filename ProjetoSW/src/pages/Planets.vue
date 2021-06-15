@@ -1,7 +1,15 @@
 <template>
   <q-page padding>
-    <div class="text-h3">Planetas</div>
+    <div class="q-pa-md">
+    <div class="row items-start q-gutter-md">
+      <q-toolbar class="text-dark">
+
+      <q-btn flat round icon="west" to="/" />
+      </q-toolbar>
+  </div>
+  </div>
   </q-page>
+
 </template>
 
 <script>

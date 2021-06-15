@@ -1,30 +1,68 @@
 <template>
   <q-page padding>
-    <div class="text-h3 text-center">Personagens</div>
-    <div class="row">
+    <q-btn-dropdown class="" style="margin-bottom: 20px" color="primary" label="Mudar Página">
+      <q-list>
+        <q-item clickable v-close-popup @click="onItemClick">
+          <q-item-section>
+            <q-item-label>Planetas</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
+      <div class="text-h3 text-center" style="padding-bottom: 25px">Personagens</div>
+        <div class="row justify-center">
           <div class="col-md-6" style="margin-left: 15px;">
-            <q-input
-              v-model="buscaNome"
-              debounce="500"
-              filled
-              placeholder="Pesquisa"
-            >
+              <q-input
+                style="padding-bottom: 25px"
+                v-model="buscaNome"
+                debounce="500"
+                filled
+                placeholder="Pesquisa"
+              >
               <template v-slot:append>
-                <q-icon @click="fazerPesquisa" label="teste" color="primary" name="search" />
+                <q-icon @click="fazerPesquisa" label="buscaNome" color="primary" name="search" />
               </template>
-            </q-input>
+              </q-input>
+              <q-item clickable v-ripple>
+                  <q-item-section>
+                    <q-item-label overline>{{buscaNome}}</q-item-label>
+                    <q-item-label>{{buscaNome}}</q-item-label>
+                  </q-item-section>
+                </q-item>
           </div>
         </div>
-        <q-item-section>{{buscaNome}}</q-item-section>
-    <q-item clickable v-ripple v-for="person in people" :key="person.name">
+
+      <div class="q-pa-md row items-start q-gutter-md"
+      v-for="person in people" :key="person.name">
+      <q-card flat bordered>
+      <q-item>
         <q-item-section>
-          <q-item-label overline>{{person.name}}</q-item-label>
-          <q-item-label>{{person.birth_year}}</q-item-label>
+          {{person.date_birth}}
         </q-item-section>
-        <q-item-section thumbnail>
-          <img src="">
+
+        <q-item-section class="text-left">
+          <q-item-label overline>{{person.name}}</q-item-label>
+          <q-item-label caption>
+           Birth Year:   {{person.birth_year}}
+          </q-item-label>
         </q-item-section>
       </q-item>
+
+      <q-separator />
+
+      <q-card-section>
+        <q-card-section>
+          Gender: {{person.gender}}
+        </q-card-section>
+
+        <q-separator vertical />
+
+        <q-card-section class="col-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </q-card-section>
+      </q-card-section>
+    </q-card>
+    </div>
   </q-page>
 </template>
 
@@ -50,6 +88,9 @@ export default {
         .then(response => {
           this.buscaNome = response.data.results
         })
+    },
+    onItemClick () {
+      this.$router.push('/Planets')
     }
   },
   beforeMount () {
