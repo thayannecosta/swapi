@@ -11,57 +11,52 @@
     </q-btn-dropdown>
       <div class="text-h3 text-center" style="padding-bottom: 25px">Personagens</div>
         <div class="row justify-center">
-          <div class="col-md-6" style="margin-left: 15px;">
-              <q-input
+          <div class="col-12 col-md-8" style="margin-left: 15px;">
+              <q-input type="search"
                 style="padding-bottom: 25px"
                 v-model="buscaNome"
                 debounce="500"
                 filled
+                @keyup="fazerPesquisa"
                 placeholder="Pesquisa"
               >
               <template v-slot:append>
-                <q-icon @click="fazerPesquisa" label="buscaNome" color="primary" name="search" />
+                <q-icon @click="fazerPesquisa" color="primary" name="search" />
               </template>
               </q-input>
-              <q-item clickable v-ripple>
-                  <q-item-section>
-                    <q-item-label overline>{{buscaNome}}</q-item-label>
-                    <q-item-label>{{buscaNome}}</q-item-label>
-                  </q-item-section>
-                </q-item>
           </div>
         </div>
+    <div class="row items-start col-12 q-col-gutter-md">
+      <div v-for="person in people" :key="person.name" class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <q-card flat bordered>
 
-      <div class="q-pa-md row items-start q-gutter-md"
-      v-for="person in people" :key="person.name">
-      <q-card flat bordered>
-      <q-item>
-        <q-item-section>
-          {{person.date_birth}}
-        </q-item-section>
+            <q-item-section items-start>
+              <q-item-label overline>{{person.name}}</q-item-label>
+                <q-item-label caption>
+                Birth Year:   {{person.birth_year}}
+                </q-item-label>
+            </q-item-section>
 
-        <q-item-section class="text-left">
-          <q-item-label overline>{{person.name}}</q-item-label>
-          <q-item-label caption>
-           Birth Year:   {{person.birth_year}}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
+          <q-separator />
 
-      <q-separator />
+          <q-card-section>
+            <q-card-section>
+              Gender: {{person.gender}}
+            </q-card-section>
+            <q-card-section>
+              Skin Color: {{person.skin_color}}
+            </q-card-section>
 
-      <q-card-section>
-        <q-card-section>
-          Gender: {{person.gender}}
-        </q-card-section>
-
-        <q-separator vertical />
-
-        <q-card-section class="col-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </q-card-section>
-      </q-card-section>
-    </q-card>
+            <q-separator vertical />
+            <q-card-section class="col-4">
+            Mass: {{person.mass}}
+            </q-card-section>
+            <q-card-section class="col-4">
+            Height: {{person.height}}
+            </q-card-section>
+          </q-card-section>
+        </q-card>
+      </div>
     </div>
   </q-page>
 </template>
@@ -76,17 +71,17 @@ export default {
     }
   },
   methods: {
-    listarPersonagens () {
-      this.$axios.get('https://swapi.dev/api/people')
-        .then(response => {
-          this.people = response.data.results
-        })
-    },
+    // listarPersonagens () {
+    //   this.$axios.get('https://swapi.dev/api/people')
+    //     .then(response => {
+    //       this.people = response.data.results
+    //     })
+    // },
     fazerPesquisa () {
       const url = 'https://swapi.dev/api/people/?search=' + this.buscaNome
       this.$axios.get(url)
         .then(response => {
-          this.buscaNome = response.data.results
+          this.people = response.data.results
         })
     },
     onItemClick () {
@@ -94,7 +89,7 @@ export default {
     }
   },
   beforeMount () {
-    this.listarPersonagens()
+    this.fazerPesquisa()
   }
 }
 </script>
