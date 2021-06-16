@@ -75,10 +75,10 @@ export default {
         .then(response => {
           this.planets = response.data.results
         })
-    },
-    beforeMount () {
-      this.fazerPesquisaPlaneta()
     }
+  },
+  beforeMount () {
+    this.fazerPesquisaPlaneta()
   }
 }
 </script>
